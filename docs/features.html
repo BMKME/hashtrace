@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - HashTrace Enterprise Audit Trail Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --secondary: #06b6d4;
+            --accent: #0ea5e9;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg: #ffffff;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--secondary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--secondary);
+        }
+
+        .cta-button {
+            background: var(--secondary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .cta-button:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .breadcrumb {
+            background: var(--bg-light);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .breadcrumb-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .feature-category {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-detail {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .feature-detail:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary);
+        }
+
+        .feature-detail h3 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-detail p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:hover {
+            background: var(--bg-light);
+        }
+
+        .comparison-table .check {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .category-title {
+                font-size: 1.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">⚡</div>
+                <span>HashTrace</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html" class="active">Features</a></li>
+                <li><a href="documentation.html">Documentation</a></li>
+                <li><a href="https://github.com/BMKME/hashtrace" target="_blank">GitHub</a></li>
+            </ul>
+            <a href="https://github.com/BMKME/hashtrace" class="cta-button">Get Started</a>
+        </nav>
+    </header>
+
+    <div class="breadcrumb">
+        <div class="breadcrumb-content">
+            <a href="index.html">Home</a> / <span>Features</span>
+        </div>
+    </div>
+
+    <div class="page-header">
+        <h1>Comprehensive Features</h1>
+        <p>Explore all the powerful capabilities of HashTrace for enterprise audit trails</p>
+    </div>
+
+    <main>
+        <!-- Security Features -->
+        <section class="feature-category">
+            <h2 class="category-title">🔐 Security Features</h2>
+            <div class="features-grid">
+                <div class="feature-detail">
+                    <h3>Cryptographic Verification</h3>
+                    <p>Industry-standard cryptographic algorithms ensure tamper-proof audit trails</p>
+                    <ul class="feature-list">
+                        <li>SHA-256 hash chains</li>
+                        <li>Ed25519 signatures</li>
+                        <li>Merkle tree verification</li>
+                        <li>Local verification support</li>
+                    </ul>
+                </div>
+                <div class="feature-detail">
+                    <h3>Zero-Trust Architecture</h3>
+                    <p>Implement zero-trust security model across your infrastructure</p>
+                    <ul class="feature-list">
+                        <li>Mutual TLS (mTLS)</li>
+                        <li>Service identity verification</li>
+                        <li>Risk-based access control</li>
+                        <li>Certificate management</li>
+                    </ul>
+                </div>
+                <div class="feature-detail">
+                    <h3>Behavioral Analysis</h3>
+                    <p>Detect anomalies and threats using advanced behavioral analysis</p>
+                    <ul class="feature-list">
+                        <li>User behavior profiling</li>
+                        <li>Anomaly detection</li>
+                        <li>Threat scoring</li>
+                        <li>Pattern recognition</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enterprise Features -->
+        <section class="feature-category">
+            <h2 class="category-title">🏢 Enterprise Features</h2>
+            <div class="features-grid">
+                <div class="feature-detail">
+                    <h3>Multi-Tenant Architecture</h3>
+                    <p>Complete isolation and resource management for multiple organizations</p>
+                    <ul class="feature-list">
+                        <li>Complete data isolation</li>
+                        <li>Tenant-specific configurations</li>
+                        <li>Resource quotas</li>
+                        <li>Billing per tenant</li>
+                    </ul>
+                </div>
+                <div class="feature-detail">
+                    <h3>Role-Based Access Control</h3>
+                    <p>Fine-grained access control with customizable roles and permissions</p>
+                    <ul class="feature-list">
+                        <li>Predefined roles</li>
+                        <li>Custom role creation</li>
+                        <li>Permission management</li>
+                        <li>Audit trail for changes</li>
+                    </ul>
+                </div>
+                <div class="feature-detail">
+                    <h3>API Key Management</h3>
+                    <p>Secure API key generation and management with rotation support</p>
+                    <ul class="feature-list">
+                        <li>Key generation</li>
+                        <li>Key rotation</li>
+                        <li>Usage tracking</li>
+                        <li>Revocation support</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Features -->
+        <section class="feature-category">
+            <h2 class="category-title">📊 Analytics Features</h2>
+            <div class="features-grid">
+                <div class="feature-detail">
+                    <h3>Real-Time Event Processing</h3>
+                    <p>Process and analyze events in real-time with sub-millisecond latency</p>
+                    <ul class="feature-list">
+                        <li>&lt;5ms processing time</li>
+                        <li>10,000+ events/second</li>
+                        <li>Stream processing</li>
+                        <li>Real-time dashboards</li>
+                    </ul>
+                </div>
+                <div class="feature-detail">
+                    <h3>Advanced Correlation</h3>
+                    <p>Correlate events across systems to identify patterns and relationships</p>
+                    <ul class="feature-list">
+                        <li>Multi-event correlation</li>
+                        <li>Pattern detection</li>
+                        <li>Relationship mapping</li>
+                        <li>Custom rules</li>
+                    </ul>
+                </div>
+                <div class="feature-detail">
+                    <h3>Threat Detection</h3>
+                    <p>Automatically detect and alert on security threats and anomalies</p>
+                    <ul class="feature-list">
+                        <li>Brute force detection</li>
+                        <li>Data exfiltration detection</li>
+                        <li>Privilege escalation detection</li>
+                        <li>Custom threat rules</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integration Features -->
+        <section class="feature-category">
+            <h2 class="category-title">🔗 Integration Features</h2>
+            <div class="features-grid">
+                <div class="feature-detail">
+                    <h3>Enterprise Integrations</h3>
+                    <p>Connect with popular enterprise platforms and tools</p>
+                    <ul class="feature-list">
+                        <li>Kafka streaming</li>
+                        <li>Elasticsearch indexing</li>
+                        <li>Datadog integration</li>
+                        <li>Splunk connector</li>
+                    </ul>
+                </div>
+                <div class="feature-detail">
+                    <h3>Webhook System</h3>
+                    <p>Real-time notifications and event forwarding via webhooks</p>
+                    <ul class="feature-list">
+                        <li>Event-based webhooks</li>
+                        <li>HMAC verification</li>
+                        <li>Retry logic</li>
+                        <li>Webhook testing</li>
+                    </ul>
+                </div>
+                <div class="feature-detail">
+                    <h3>SDK Support</h3>
+                    <p>Multiple SDKs for easy integration with your applications</p>
+                    <ul class="feature-list">
+                        <li>Node.js SDK</li>
+                        <li>Python SDK</li>
+                        <li>CLI tool</li>
+                        <li>REST API</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compliance Features -->
+        <section class="feature-category">
+            <h2 class="category-title">✅ Compliance Features</h2>
+            <div class="features-grid">
+                <div class="feature-detail">
+                    <h3>Compliance Auditing</h3>
+                    <p>Built-in support for major compliance standards</p>
+                    <ul class="feature-list">
+                        <li>SOC 2 compliance</li>
+                        <li>HIPAA support</li>
+                        <li>PCI-DSS compliance</li>
+                        <li>GDPR compliance</li>
+                    </ul>
+                </div>
+                <div class="feature-detail">
+                    <h3>Custom Compliance Packs</h3>
+                    <p>Create and manage custom compliance rules and policies</p>
+                    <ul class="feature-list">
+                        <li>Rule builder</li>
+                        <li>Policy templates</li>
+                        <li>Compliance reports</li>
+                        <li>Violation tracking</li>
+                    </ul>
+                </div>
+                <div class="feature-detail">
+                    <h3>Audit Reports</h3>
+                    <p>Generate comprehensive audit reports for compliance verification</p>
+                    <ul class="feature-list">
+                        <li>Automated reports</li>
+                        <li>Custom reports</li>
+                        <li>Export formats</li>
+                        <li>Scheduled delivery</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Comparison -->
+        <section class="feature-category">
+            <h2 class="category-title">Feature Comparison</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>HashTrace</th>
+                        <th>Traditional Solutions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cryptographic Verification</td>
+                        <td class="check">✓</td>
+                        <td>✗</td>
+                    </tr>
+                    <tr>
+                        <td>Real-Time Processing (&lt;5ms)</td>
+                        <td class="check">✓</td>
+                        <td>✗</td>
+                    </tr>
+                    <tr>
+                        <td>Zero-Trust Architecture</td>
+                        <td class="check">✓</td>
+                        <td>✗</td>
+                    </tr>
+                    <tr>
+                        <td>Multi-Tenant Support</td>
+                        <td class="check">✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Advanced Analytics</td>
+                        <td class="check">✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Enterprise Integrations</td>
+                        <td class="check">✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>Custom Compliance Rules</td>
+                        <td class="check">✓</td>
+                        <td>✗</td>
+                    </tr>
+                    <tr>
+                        <td>Open Source</td>
+                        <td class="check">✓</td>
+                        <td>✗</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="https://github.com/BMKME/hashtrace">Repository</a></li>
+                    <li><a href="https://github.com/BMKME/hashtrace/releases">Releases</a></li>
+                    <li><a href="https://github.com/BMKME/hashtrace/issues">Issues</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Documentation</h4>
+                <ul>
+                    <li><a href="https://github.com/BMKME/hashtrace#quickstart">Quick Start</a></li>
+                    <li><a href="https://github.com/BMKME/hashtrace/blob/main/docs/API_REFERENCE.md">API Reference</a></li>
+                    <li><a href="https://github.com/BMKME/hashtrace/blob/main/docs/DEPLOYMENT.md">Deployment</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="https://github.com/BMKME/hashtrace/discussions">Discussions</a></li>
+                    <li><a href="https://github.com/BMKME/hashtrace/blob/main/CONTRIBUTING.md">Contributing</a></li>
+                    <li><a href="https://github.com/BMKME/hashtrace/blob/main/LICENSE">License</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 HashTrace. All rights reserved. | Apache License 2.0</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - HashTrace Enterprise Audit Trail Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --secondary: #06b6d4;
+            --accent: #0ea5e9;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg: #ffffff;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--secondary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--secondary);
+        }
+
+        .cta-button {
+            background: var(--secondary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .cta-button:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .breadcrumb {
+            background: var(--bg-light);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .breadcrumb-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .doc-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary);
+        }
+
+        .doc-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .doc-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .doc-card p {
+            color: var(--text-light);
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+
+        .doc-link {
+            color: var(--secondary);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .doc-link:hover {
+            color: var(--accent);
+        }
+
+        .quick-start {
+            background: var(--bg-light);
+            border-left: 4px solid var(--secondary);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .quick-start h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .quick-start ol {
+            margin-left: 1.5rem;
+        }
+
+        .quick-start li {
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .code-block {
+            background: var(--primary);
+            color: #00ff00;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            margin-top: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-item p {
+            color: var(--text-light);
+            display: none;
+        }
+
+        .faq-item.active p {
+            display: block;
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">⚡</div>
+                <span>HashTrace</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="documentation.html" class="active">Documentation</a></li>
+                <li><a href="https://github.com/BMKME/hashtrace" target="_blank">GitHub</a></li>
+            </ul>
+            <a href="https://github.com/BMKME/hashtrace" class="cta-button">Get Started</a>
+        </nav>
+    </header>
+
+    <div class="breadcrumb">
+        <div class="breadcrumb-content">
+            <a href="index.html">Home</a> / <span>Documentation</span>
+        </div>
+    </div>
+
+    <div class="page-header">
+        <h1>Documentation</h1>
+        <p>Comprehensive guides and references for HashTrace</p>
+    </div>
+
+    <div class="container">
+        <!-- Quick Start -->
+        <section class="quick-start">
+            <h2>⚡ Quick Start (30 Minutes)</h2>
+            <ol>
+                <li><strong>Clone Repository:</strong> <code>git clone https://github.com/BMKME/hashtrace.git</code></li>
+                <li><strong>Install Dependencies:</strong> <code>npm install</code></li>
+                <li><strong>Setup Database:</strong> <code>npm run db:setup</code></li>
+                <li><strong>Start Server:</strong> <code>npm start</code></li>
+                <li><strong>Access Dashboard:</strong> Visit http://localhost:9000</li>
+            </ol>
+            <div class="code-block">
+# Clone and setup
+git clone https://github.com/BMKME/hashtrace.git
+cd hashtrace
+npm install
+npm run db:setup
+npm start
+            </div>
+        </section>
+
+        <!-- Documentation Sections -->
+        <h2 class="section-title">📚 Documentation Resources</h2>
+        <div class="docs-grid">
+            <a href="https://github.com/BMKME/hashtrace#quickstart" class="doc-card">
+                <div class="doc-icon">🚀</div>
+                <h3>Quick Start Guide</h3>
+                <p>Get up and running with HashTrace in 30 minutes with step-by-step instructions.</p>
+                <span class="doc-link">Read Guide →</span>
+            </a>
+
+            <a href="https://github.com/BMKME/hashtrace/blob/main/docs/API_REFERENCE.md" class="doc-card">
+                <div class="doc-icon">📖</div>
+                <h3>API Reference</h3>
+                <p>Complete API documentation with 30+ endpoints, request/response examples, and error codes.</p>
+                <span class="doc-link">View API →</span>
+            </a>
+
+            <a href="https://github.com/BMKME/hashtrace/blob/main/docs/DEPLOYMENT.md" class="doc-card">
+                <div class="doc-icon">🚢</div>
+                <h3>Deployment Guide</h3>
+                <p>Production deployment instructions for Docker, Kubernetes, and cloud platforms.</p>
+                <span class="doc-link">Deploy Now →</span>
+            </a>
+
+            <a href="https://github.com/BMKME/hashtrace/blob/main/docs/GETTING_STARTED.md" class="doc-card">
+                <div class="doc-icon">🎯</div>
+                <h3>Getting Started</h3>
+                <p>Comprehensive getting started guide covering installation, configuration, and first steps.</p>
+                <span class="doc-link">Get Started →</span>
+            </a>
+
+            <a href="https://github.com/BMKME/hashtrace/blob/main/CONTRIBUTING.md" class="doc-card">
+                <div class="doc-icon">🤝</div>
+                <h3>Contributing Guide</h3>
+                <p>Learn how to contribute to HashTrace, including development setup and code standards.</p>
+                <span class="doc-link">Contribute →</span>
+            </a>
+
+            <a href="https://github.com/BMKME/hashtrace/blob/main/CHANGELOG.md" class="doc-card">
+                <div class="doc-icon">📝</div>
+                <h3>Changelog</h3>
+                <p>Complete version history with features, improvements, and bug fixes for each release.</p>
+                <span class="doc-link">View Changelog →</span>
+            </a>
+        </div>
+
+        <!-- SDK Documentation -->
+        <h2 class="section-title">🔧 SDK Documentation</h2>
+        <div class="docs-grid">
+            <div class="doc-card">
+                <div class="doc-icon">🟢</div>
+                <h3>Node.js SDK</h3>
+                <p>Official Node.js SDK for integrating HashTrace with your JavaScript applications.</p>
+                <span class="doc-link">View Docs →</span>
+            </div>
+
+            <div class="doc-card">
+                <div class="doc-icon">🐍</div>
+                <h3>Python SDK</h3>
+                <p>Official Python SDK for integrating HashTrace with your Python applications.</p>
+                <span class="doc-link">View Docs →</span>
+            </div>
+
+            <div class="doc-card">
+                <div class="doc-icon">⌨️</div>
+                <h3>CLI Tool</h3>
+                <p>Command-line interface for managing HashTrace from the terminal.</p>
+                <span class="doc-link">View Docs →</span>
+            </div>
+        </div>
+
+        <!-- Integration Guides -->
+        <h2 class="section-title">🔗 Integration Guides</h2>
+        <div class="docs-grid">
+            <div class="doc-card">
+                <div class="doc-icon">📨</div>
+                <h3>Kafka Integration</h3>
+                <p>Stream events to Apache Kafka for real-time processing and analysis.</p>
+                <span class="doc-link">Learn More →</span>
+            </div>
+
+            <div class="doc-card">
+                <div class="doc-icon">🔍</div>
+                <h3>Elasticsearch Integration</h3>
+                <p>Index and search events using Elasticsearch for powerful analytics.</p>
+                <span class="doc-link">Learn More →</span>
+            </div>
+
+            <div class="doc-card">
+                <div class="doc-icon">📊</div>
+                <h3>Datadog Integration</h3>
+                <p>Send events and metrics to Datadog for comprehensive monitoring.</p>
+                <span class="doc-link">Learn More →</span>
+            </div>
+
+            <div class="doc-card">
+                <div class="doc-icon">🔎</div>
+                <h3>Splunk Integration</h3>
+                <p>Forward events to Splunk for advanced security and compliance analysis.</p>
+                <span class="doc-link">Learn More →</span>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <h2 class="section-title">❓ Frequently Asked Questions</h2>
+        <div class="faq-item" onclick="this.classList.toggle('active')">
+            <h4>What is HashTrace?</h4>
+            <p>HashTrace is an enterprise-grade audit trail platform that provides cryptographically verified event tracking with complete compliance auditing. It ensures tamper-proof audit trails using SHA-256 hash chains and Ed25519 signatures.</p>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('active')">
+            <h4>How fast is HashTrace?</h4>
+            <p>HashTrace can process events in less than 5 milliseconds with a throughput of 10,000+ events per second. This makes it suitable for high-volume audit trail requirements.</p>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('active')">
+            <h4>What compliance standards does HashTrace support?</h4>
+            <p>HashTrace supports SOC 2, HIPAA, PCI-DSS, and GDPR compliance standards. It includes built-in compliance auditing and can be configured with custom compliance rules.</p>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('active')">
+            <h4>Can I deploy HashTrace on-premises?</h4>
+            <p>Yes, HashTrace can be deployed on-premises using Docker or Kubernetes. See the Deployment Guide for detailed instructions.</p>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('active')">
+            <h4>What SDKs are available?</h4>
+            <p>HashTrace provides official SDKs for Node.js and Python, along with a REST API and CLI tool. Additional SDKs can be developed using the REST API.</p>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('active')">
+            <h4>How do I integrate HashTrace with my application?</h4>
+            <p>You can integrate HashTrace using the official SDKs, REST API, or webhooks. See the API Reference and SDK documentation for detailed integration examples.</p>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('active')">
+            <h4>Is HashTrace open source?</h4>
+            <p>Yes, HashTrace is open source under the Apache 2.0 license. You can find the source code on GitHub at https://github.com/BMKME/hashtrace</p>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('active')">
+            <h4>How can I contribute to HashTrace?</h4>
+            <p>We welcome contributions! Please see the Contributing Guide on GitHub for information about development setup, code standards, and the pull request process.</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="https://github.com/BMKME/hashtrace">Repository</a></li>
+                    <li><a href="https://github.com/BMKME/hashtrace/releases">Releases</a></li>
+                    <li><a href="https://github.com/BMKME/hashtrace/issues">Issues</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Documentation</h4>
+                <ul>
+                    <li><a href="https://github.com/BMKME/hashtrace#quickstart">Quick Start</a></li>
+                    <li><a href="https://github.com/BMKME/hashtrace/blob/main/docs/API_REFERENCE.md">API Reference</a></li>
+                    <li><a href="https://github.com/BMKME/hashtrace/blob/main/docs/DEPLOYMENT.md">Deployment</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="https://github.com/BMKME/hashtrace/discussions">Discussions</a></li>
+                    <li><a href="https://github.com/BMKME/hashtrace/blob/main/CONTRIBUTING.md">Contributing</a></li>
+                    <li><a href="https://github.com/BMKME/hashtrace/blob/main/LICENSE">License</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 HashTrace. All rights reserved. | Apache License 2.0</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
